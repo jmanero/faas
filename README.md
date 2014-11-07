@@ -28,7 +28,7 @@ sudo chef-solo -r https://PATH-YOU-COPPIED-FROM-GITHUB/cookbooks.tar.gz -o 'reci
 #### *GET /*
 Return a URL to a random fuck that you don't give.
 
-#### *GET /slack.json*
+#### *POST /slack.json*
 Slack outgoing-webhook integration endpoint.
 
 #### *GET /index.json*
