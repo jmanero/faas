@@ -9,15 +9,18 @@
 include_recipe 'apt'
 include_recipe 'libarchive'
 
+package 'haveged'
+package 'nginx'
 package 'nodejs'
 package 'npm'
-package 'nginx'
 
 ## Fetch app and extract archive
 asset = github_asset "faas-#{ node['faas']['version'] }.tar.gz" do
   repo 'jmanero/faas'
   release node['faas']['version']
   not_if { node['faas']['version'] == 'vagrant' }
+
+  notifies :extract, 'libarchive_file[faas-source.tar.gz]', :immediate
 end
 link node['faas']['source'] do
   to '/vagrant'
@@ -28,7 +31,9 @@ libarchive_file 'faas-source.tar.gz' do
   path asset.asset_path
   extract_to node['faas']['source']
 
+  action :nothing
   notifies :run, 'execute[npm-install]'
+  notifies :restart, 'service[faas]'
   only_if { ::File.exists?(asset.asset_path) }
 end
 
@@ -36,9 +41,8 @@ end
 execute 'npm-install' do
   cwd node['faas']['source']
   command '/usr/bin/npm install'
-  not_if do ::File.exists?(
-    ::File.join(node['faas']['source'], 'node_modules'))
-  end
+
+  action :nothing
   notifies :start, 'service[faas]'
 end
 
