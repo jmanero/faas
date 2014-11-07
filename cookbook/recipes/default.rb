@@ -11,7 +11,9 @@ include_recipe 'libarchive'
 
 package 'nodejs'
 package 'npm'
+package 'nginx'
 
+## Fetch app and extract archive
 asset = github_asset "faas-#{ node['faas']['version'] }.tar.gz" do
   repo 'jmanero/faas'
   release node['faas']['version']
@@ -30,6 +32,32 @@ libarchive_file 'faas-source.tar.gz' do
   only_if { ::File.exists?(asset.asset_path) }
 end
 
+## Install NodeJS modules
+execute 'npm-install' do
+  cwd node['faas']['source']
+  command '/usr/bin/npm install'
+  not_if do ::File.exists?(
+    ::File.join(node['faas']['source'], 'node_modules'))
+  end
+  notifies :start, 'service[faas]'
+end
+
+## Configure reverse proxy
+template '/etc/nginx/sites-available/faas' do
+  source 'nginx.conf.erb'
+  notifies :reload, 'service[nginx]'
+end
+
+link '/etc/nginx/sites-enabled/faas' do
+  to '/etc/nginx/sites-available/faas'
+  notifies :reload, 'service[nginx]'
+end
+link '/etc/nginx/sites-enabled/default' do
+  action :delete
+  notifies :reload, 'service[nginx]'
+end
+
+## Configure and start services
 template '/etc/init/faas.conf' do
   source 'upstart.conf.erb'
 end
@@ -40,11 +68,7 @@ service 'faas' do
   ignore_failure true
 end
 
-execute 'npm-install' do
-  cwd node['faas']['source']
-  command '/usr/bin/npm install'
-  not_if do ::File.exists?(
-    ::File.join(node['faas']['source'], 'node_modules'))
-  end
-  notifies :start, 'service[faas]'
+service 'nginx' do
+  supports :status => true, :reload => true
+  action [:enable, :start]
 end

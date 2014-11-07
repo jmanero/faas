@@ -27,5 +27,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.hostname = 'faas'
-  config.vm.network :forwarded_port, :host => 9001, :guest => 9001
+  config.vm.network :forwarded_port, :host => 9001, :guest => 80
 end
