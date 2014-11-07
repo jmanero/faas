@@ -2,7 +2,7 @@
 
 require 'bundler'
 require 'bundler/setup'
-# require 'berkshelf/thor'
+require 'berkshelf/thor'
 require 'octokit'
 require 'thor/scmversion'
 require 'uri'
@@ -94,7 +94,7 @@ module Moose
 
     desc 'cleanup', 'Remove temporary files'
     def cleanup(*args)
-      # remove_file 'cookbook/cookbooks.tar.gz'
+      remove_file 'cookbooks.tar.gz'
       remove_file 'source.tar.gz'
     end
   end

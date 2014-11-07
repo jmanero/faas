@@ -18,7 +18,8 @@ bin/*
 
 .kitchen/
 .kitchen.local.yml
+
+cookbook/metadata.json
 node_modules
+TOKEN
 VERSION
-Gemfile.lock
-.vagrant/
