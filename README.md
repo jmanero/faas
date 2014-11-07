@@ -1,6 +1,6 @@
 Fucks as a Serivice
 ===================
-For those days when you can't find a single fucks to give...
+For those days when you can't find a single fuck to give...
 
 ## I don't give a fuck how it works
 This is a simple controller that periodically fetches the latest contents of a
@@ -27,6 +27,9 @@ sudo chef-solo -r https://PATH-YOU-COPPIED-FROM-GITHUB/cookbooks.tar.gz -o 'reci
 ## API
 #### *GET /*
 Return a URL to a random fuck that you don't give.
+
+#### *GET /slack.json*
+Slack outgoing-webhook integration endpoint.
 
 #### *GET /index.json*
 Return the index of fucks that you don't give.
