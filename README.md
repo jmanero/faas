@@ -35,9 +35,8 @@ Return the index of fucks that you don't give.
 Return the status of all of the fucks that you don't give.
 
 #### *POST /reindex*
-Update the index of fucks that you don't give. Configure as a GitHub WebHook
-for your the repo of fucks that you don't give, but want to index anyway for
-immediate re-indexes on update.
+Update the index of fucks that you don't give. For immediate re-indexes on content-update, configure as a GitHub WebHook for the repo of fucks that you
+don't give, but want to index anyway.
 
 ## License
 ```
