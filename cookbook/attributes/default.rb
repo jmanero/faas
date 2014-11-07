@@ -9,4 +9,4 @@
 
 ## Source Deployment
 default['faas']['version'] = "#{ FAAS::Deploy.version(run_context) }"
-default['opsworker']['source'] = '/usr/lib/faas'
+default['faas']['source'] = '/usr/lib/faas'

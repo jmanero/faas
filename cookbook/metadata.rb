@@ -3,8 +3,8 @@ maintainer       'John Manero'
 maintainer_email 'john.manero@gmail.com'
 license          'WTFPL'
 description      'Installs/Configures Fucks as a Service'
-long_description IO.read('../README.md')
-version          IO.read('../VERSION')
+long_description IO.read(::File.expand_path('../../README.md', __FILE__)) rescue ''
+version          IO.read(::File.expand_path('../../VERSION', __FILE__)) rescue '0.0.1'
 
 depends 'apt'
 depends 'github'

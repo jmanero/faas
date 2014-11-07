@@ -15,6 +15,11 @@ package 'npm'
 asset = github_asset "faas-#{ node['faas']['version'] }.tar.gz" do
   repo 'jmanero/faas'
   release node['faas']['version']
+  not_if { node['faas']['version'] == 'vagrant' }
+end
+link node['faas']['source'] do
+  to '/vagrant'
+  only_if { node['faas']['version'] == 'vagrant' }
 end
 
 libarchive_file 'faas-source.tar.gz' do
@@ -23,6 +28,10 @@ libarchive_file 'faas-source.tar.gz' do
 
   notifies :run, 'execute[npm-install]'
   only_if { ::File.exists?(asset.asset_path) }
+end
+
+template '/etc/init/faas.conf' do
+  source 'upstart.conf.erb'
 end
 
 service 'faas' do
