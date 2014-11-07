@@ -37,7 +37,7 @@ Return the index of fucks that you don't give.
 #### *GET /status.json*
 Return the status of all of the fucks that you don't give.
 
-#### *POST /reindex*
+#### *POST /update*
 Update the index of fucks that you don't give. For immediate re-indexes on content-update, configure as a GitHub WebHook for the repo of fucks that you
 don't give, but want to index anyway.
 
