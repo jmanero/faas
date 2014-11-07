@@ -1,0 +1,19 @@
+{
+  "name": "faas",
+  "version": "1.0.0",
+  "author": "John Manero <john.manero@gmail.com>",
+  "description": "Random acts of not giving one single godamn fuck",
+  "main": "bin/server.js",
+  "dependencies": {
+    "express": "4.x",
+    "mime": "1.2.x",
+    "nconf": "0.6.x"
+  },
+  "bin": {
+    "fucksasaservice": "server.js"
+  },
+  "scripts": {
+    "test": "echo \"Nope. No fucks in here.\""
+  },
+  "license": "WTFPL"
+}

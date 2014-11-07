@@ -1,0 +1,16 @@
+#
+# Cookbook Name:: faas
+# Template:: upstart.conf.erb
+#
+# Copyright (C) 2014 John Manero <john.manero@gmail.com>
+#
+# Do What the Fuck You Want to Public License
+#
+description "No fucks for you"
+author  "John Manero <john.manero@gmail.com>"
+
+start on startup
+stop on shutdown
+
+console log
+exec /usr/bin/nodejs <%= node['faas']['source'] %>/bin/server.js
