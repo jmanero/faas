@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     aws.tags = {
       :datadog => 'enable',
-      :serivce => 'faas'
+      :service => 'faas'
     }
 
     override.vm.box = 'aws'
