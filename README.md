@@ -11,9 +11,27 @@ URLs to a random file therein upon request.
 Every 60 minutes. No, it can't be configured. Use the WebHook endpoint.
 
 ## I don't give a fuck about deploying it
+### Releases
 But incase you actually do, go to the
 [releases page](https://github.com/jmanero/faas/releases). Each release has a
 cookbook bundle. Run it with `chef-solo`:
+
+### Development
+Use Vagrant. The included Gemfile will install `vagrant` and required plugins.
+Insert the following n `.vagrant/secret.yaml`:
+
+```
+aws_key: XXXX
+aws_secret: XXXX
+key_pair: key
+subnet_id: subnet-deadbeef
+security_groups:
+  - sg-deadbeef
+elb: faas
+
+dd_key: XXXX
+dd_app: XXXX
+```
 
 ```
 ## Install Chef. I don't give a fuck about security...

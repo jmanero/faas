@@ -7,6 +7,8 @@
 # Do What the Fuck You Want to Public License
 #
 include_recipe 'apt'
+include_recipe 'datadog::dd-agent'
+include_recipe 'datadog::dd-handler'
 include_recipe 'libarchive'
 
 package 'haveged'
@@ -18,13 +20,9 @@ package 'npm'
 asset = github_asset "faas-#{ node['faas']['version'] }.tar.gz" do
   repo 'jmanero/faas'
   release node['faas']['version']
-  not_if { node['faas']['version'] == 'vagrant' }
+  not_if { node['vagrant'] }
 
   notifies :extract, 'libarchive_file[faas-source.tar.gz]', :immediate
-end
-link node['faas']['source'] do
-  to '/vagrant'
-  only_if { node['faas']['version'] == 'vagrant' }
 end
 
 libarchive_file 'faas-source.tar.gz' do
@@ -32,9 +30,8 @@ libarchive_file 'faas-source.tar.gz' do
   extract_to node['faas']['source']
 
   action :nothing
-  notifies :run, 'execute[npm-install]'
   notifies :restart, 'service[faas]'
-  only_if { ::File.exists?(asset.asset_path) }
+  only_if { ::File.exist?(asset.asset_path) }
 end
 
 ## Install NodeJS modules
@@ -42,7 +39,6 @@ execute 'npm-install' do
   cwd node['faas']['source']
   command '/usr/bin/npm install'
 
-  action :nothing
   notifies :start, 'service[faas]'
 end
 

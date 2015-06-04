@@ -22,3 +22,4 @@ cookbook/metadata.json
 node_modules
 TOKEN
 VERSION
+config.json

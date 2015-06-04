@@ -20,6 +20,10 @@ server {
   ## Use HTTP/1.1 with a keep-alive pool for upstream connections
   proxy_http_version 1.1;
 
+  location /nginx_status {
+    stub_status on;
+  }
+
   location / {
     proxy_pass http://faas/;
   }
