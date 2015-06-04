@@ -9,6 +9,7 @@
 include_recipe 'apt'
 include_recipe 'datadog::dd-agent'
 include_recipe 'datadog::dd-handler'
+include_recipe 'datadog::nginx'
 include_recipe 'libarchive'
 
 package 'haveged'

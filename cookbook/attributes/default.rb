@@ -10,3 +10,7 @@
 ## Source Deployment
 default['faas']['version'] = "#{ FAAS::Deploy.version(run_context) }"
 default['faas']['source'] = '/usr/local/faas'
+
+default['datadog']['nginx']['instances'] = [{
+  'nginx_status_url' => 'http://localhost:80/nginx_status/'
+}]
