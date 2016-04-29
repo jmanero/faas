@@ -12,7 +12,6 @@ pkg/
 Berksfile.lock
 
 # Bundler
-Gemfile.lock
 .bundle/*
 
 .kitchen/
@@ -20,6 +19,7 @@ Gemfile.lock
 
 cookbook/metadata.json
 node_modules
+npm-debug.log
 TOKEN
 VERSION
 config.json
