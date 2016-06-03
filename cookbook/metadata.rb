@@ -1,7 +1,7 @@
 name             'faas'
 maintainer       'John Manero'
 maintainer_email 'john.manero@gmail.com'
-license          'WTFPL'
+license          'MIT'
 description      'Installs/Configures Fucks as a Service'
 long_description IO.read(::File.expand_path('../../README.md', __FILE__)) rescue ''
 version          IO.read(::File.expand_path('../../VERSION', __FILE__)) rescue '0.0.1'
