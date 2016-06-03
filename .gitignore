@@ -20,6 +20,6 @@ Berksfile.lock
 cookbook/metadata.json
 node_modules
 npm-debug.log
-TOKEN
+GHTOKEN
 VERSION
 config.json
