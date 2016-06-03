@@ -2,9 +2,9 @@
 # Cookbook Name:: faas
 # Attributes:: default
 #
-# Copyright (C) 2014 John Manero <john.manero@gmail.com>
+# Copyright (C) 2016 John Manero <john.manero@gmail.com>
 #
-# Do What the Fuck You Want to Public License
+# The MIT License (MIT)
 #
 
 ## Source Deployment
