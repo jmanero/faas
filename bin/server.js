@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var BodyParser = require('body-parser');
 var DataDog = require('connect-datadog');
 var Express = require('express');
