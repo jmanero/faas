@@ -14,3 +14,5 @@ default['faas']['source'] = '/usr/local/faas'
 default['datadog']['nginx']['instances'] = [{
   'nginx_status_url' => 'http://localhost:80/nginx_status/'
 }]
+
+node['apt']['compile_time_update'] = true

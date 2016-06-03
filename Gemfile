@@ -5,3 +5,5 @@ gem 'berkshelf', '~> 4.1'
 gem 'octokit', '~> 4.3'
 gem 'thor', '~> 0.19'
 gem 'thor-scmversion', '~> 1.7'
+
+gem 'chef', '~> 12.5'

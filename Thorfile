@@ -53,21 +53,21 @@ module FaaS
 
       invoke :version, [type, prerelease], options
       say_status :release, "Create #{FaaS.version}"
-      new_release = Octokit.create_release(repo, FaaS.version,
+      new_release = Octokit.create_release(FaaS.repo, FaaS.version,
                                            :body => "Fucks as a Service: Version #{FaaS.version}!")
 
-      invoke :package
+      invoke :package, []
       say_status :asset, 'Upload source bundle to release'
       Octokit.upload_asset(new_release.url, 'source.tar.gz',
-                           :name => "#{repo.name}-#{Moose.version}.tar.gz",
+                           :name => "#{FaaS.repo.name}-#{FaaS.version}.tar.gz",
                            :content_type => 'application/x-gzip')
 
       say_status :asset, 'Upload cookbook bundle to release'
       Octokit.upload_asset(new_release.url, 'cookbooks.tar.gz',
-                           :name => "#{repo.name}-#{Moose.version}-cookbooks.tar.gz",
+                           :name => "#{FaaS.repo.name}-#{FaaS.version}-cookbooks.tar.gz",
                            :content_type => 'application/x-gzip')
 
-      invoke :cleanup
+      invoke :cleanup, []
     end
 
     desc 'version [TYPE] [PRERELEASE]', 'Increment the package version'
@@ -76,7 +76,7 @@ module FaaS
       unless type.nil?
         say_status :version, "Bumping #{type} version"
         run 'git push'
-        invoke 'version:bump', type, prerelease, :default => 'patch'
+        invoke 'version:bump', [type, prerelease], :default => 'patch'
       end
 
       invoke 'version:current', []
@@ -84,13 +84,13 @@ module FaaS
 
     desc 'package', 'Generate temoprary asset packages for upload'
     def package
-      invoke :version
+      invoke :version, []
 
       # Package cookbooks
       inside 'cookbook' do
         say_status :berks, 'package'
 
-        run 'bundle exec knife cookbook metadata from file metadata.rb'
+        run 'knife cookbook metadata from file metadata.rb'
         invoke 'berkshelf:package', ['../cookbooks.tar.gz'], options
       end
 

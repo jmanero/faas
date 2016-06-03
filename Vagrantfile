@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     aws.elb = Secret.elb
 
     ## us-east-1: trusty/14.04 LTS amd64 hvm:ebs 20150528
-    aws.ami = 'ami-8fc525e4'
+    aws.ami = 'ami-db24d8b6'
     aws.instance_type = 't2.micro'
 
     aws.tags = {
@@ -39,8 +39,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.omnibus.chef_version = :latest
-  config.berkshelf.enabled = true
-  config.berkshelf.berksfile_path = './cookbook/Berksfile'
+
+  if Vagrant.has_plugin?('vagrant-berkshelf')
+    config.berkshelf.enabled = true
+    config.berkshelf.berksfile_path = './cookbook/Berksfile'
+  end
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -56,4 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.run_list = ['recipe[faas::default]']
   end
+
+  config.vm.define 'faas-0'
+  config.vm.define 'faas-1'
 end
