@@ -10,7 +10,7 @@ require 'uri'
 ##
 module FaaS
   def self.token
-    @token ||= IO.read(File.join(__dir__, 'GHTOKEN')).trim
+    @token ||= IO.read(File.join(__dir__, 'GHTOKEN')).chomp
   end
 
   def self.version
@@ -22,7 +22,7 @@ module FaaS
   end
 
   def self.remote(ref = 'origin')
-    remote_url = `git config --get remote.#{ref}.url`.trim
+    remote_url = `git config --get remote.#{ref}.url`.chomp
 
     case remote_url
     when /^git@/
@@ -95,7 +95,7 @@ module FaaS
       end
 
       ## Package source
-      files = `git ls-files`.trim.split("\n")
+      files = `git ls-files`.chomp.split("\n")
       run "tar -czf source.tar.gz #{files.join(' ')}"
     end
 
